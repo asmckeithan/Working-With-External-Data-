@@ -29,15 +29,33 @@ const API_KEY =
 // myFunction().then((x) => {
 //   console.log(x);
 // });
+// async function initialLoad() {
+//   let apiData = await fetch(
+//     "https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=beng&api_key=REPLACE_ME");
+//   let jsonData = await apiData.json();
+//   console.log(jsonData);
+// }
+// initialLoad().then((x) => {
+//   console.log(x);
+// });
+
 async function initialLoad() {
-  let apiData = await fetch(
-    "https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=beng&api_key=REPLACE_ME");
-  let jsonData = await apiData.json();
-  console.log(jsonData);
+  try{
+    const response = await fetch('https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=beng&api_key=API_KEY')
+    const catBreed = await response.json();
+
+    catBreed.forEach(breed => {
+      const option = document.createElement('option');
+      option.value = breed.id;
+      option.textContent = breed.name;
+      option.style.font = "black";
+      breedSelect.appendChild(option)
+    })
+  }catch(error) {
+    console.log(`Trouble fetching Breeds:${error}`)
+  }
 }
-initialLoad().then((x) => {
-  console.log(x);
-});
+initialLoad();
 /**
  * 1. Create an async function "initialLoad" that does the following:
  * - Retrieve a list of breeds from the cat API using fetch().
@@ -46,6 +64,7 @@ initialLoad().then((x) => {
  *  - Each option should display text equal to the name of the breed.
  * This function should execute immediately.
  */
+breedSelect.addEventListener("click", )
 /**
  * 2. Create an event handler for breedSelect that does the following:
  * - Retrieve information on the selected breed from the cat API using fetch().
