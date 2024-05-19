@@ -41,9 +41,11 @@ const API_KEY =
 
 async function initialLoad() {
   try{
-    const response = await fetch('https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=beng&api_key=API_KEY')
+    const apiData = await fetch("https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=beng&api_key=API_KEY")
     const catBreed = await response.json();
-
+    
+   let jsonData = await apiData.json();
+  console.log(jsonData);
     catBreed.forEach(breed => {
       const option = document.createElement('option');
       option.value = breed.id;
@@ -56,6 +58,8 @@ async function initialLoad() {
   }
 }
 initialLoad();
+
+console.log('Error > unable to pull the data from the breed list. Only able to pull the a blank list. Was unsure as how to append each photo to the carousel')
 /**
  * 1. Create an async function "initialLoad" that does the following:
  * - Retrieve a list of breeds from the cat API using fetch().
